@@ -52,7 +52,7 @@
                                 always needs human sign-off, regardless
                                 of confidence).
     8. low confidence (< `confidence-floor`)."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [placementops.store :as store]))
 
 (def confidence-floor 0.6)
