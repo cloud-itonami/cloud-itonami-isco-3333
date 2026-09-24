@@ -1,0 +1,33 @@
+;; What this occupation's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a candidate-intake and coordination robot
+;; performs application logging, match drafting and interview-schedule
+;; coordination (ISCO 3333 employment agents and contractors). Its physical
+;; work: lifting trays of paper applications from the intake counter to the
+;; scanner, and escorting a candidate from reception to the interview room.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-3333"
+ :cases
+ [{:id :application-tray-to-scanner
+   :kind :manipulator
+   :procedure "arm lifts a tray of paper applications from the intake counter to the scanner feed shelf"
+   :params {:l1-m 0.40 :l2-m 0.35 :m1-kg 3.0 :m2-kg 2.0
+            :from [0.50 0.05] :to [0.25 0.50] :duration-s 2.0 :steps 400}
+   :sweep {:param :payload-kg :values [0.5 1.0 2.0 3.0 5.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 35.0 :basis "estimate: continuous shoulder torque of a ~3 kg-payload desktop arm"}
+   :boundary {:lo 0.1 :hi 15.0}}
+  {:id :escort-candidate-to-interview
+   :kind :transport
+   :procedure "robot escorts a candidate 50 m from reception to the interview room at the candidate's walking pace"
+   :params {:mass-kg 35.0 :payload-kg 2.0 :distance-m 50.0 :a-max-mps2 0.4
+            :brake-decel-mps2 0.6 :drive-force-n 120.0 :crr 0.02
+            :cog-height-m 0.70 :support-half-length-m 0.25}
+   :sweep {:param :v-max-mps :values [0.4 0.6 0.8 1.0 1.2]}
+   :quantity :cycle-time-s
+   :limit {:max 90.0 :basis "estimate: the candidate is seated within the 90 s the interviewer allows between scheduled slots"}
+   :boundary {:lo 0.2 :hi 1.2}}]}
