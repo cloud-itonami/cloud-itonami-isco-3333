@@ -1,6 +1,6 @@
 (ns placementops.store
   "SSoT for the ISCO-08 3333 employment placement coordination actor
-  (itonami actor pattern, ADR-2607121000 / CLAUDE.md Actors section;
+  (itonami actor pattern, ADR-2607121000 / AGENTS.md Actors section;
   README's 'Robotics premise' — a candidate-intake and coordination
   robot performs application logging, match drafting and interview
   scheduling under this advisor/governor pair, which never dispatches
